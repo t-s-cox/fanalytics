@@ -1,18 +1,27 @@
 import json
 import csv
 
-input_file = "reddit2.json"  # your JSON file
-output_file = "redditcomments.csv"  # CSV output
+def json_to_csv(json_file, csv_file):
+    # Load JSON data
+    with open(json_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
 
-with open(input_file, "r", encoding="utf-8") as f:
-    data = json.load(f)
+    # Ensure it's a list
+    if not isinstance(data, list):
+        raise ValueError("JSON must be a list of objects (dictionaries).")
 
-with open(output_file, "w", newline="", encoding="utf-8") as f:
-    writer = csv.DictWriter(f, fieldnames=["text"])
-    writer.writeheader()
-    
+    # Collect all field names (union of keys)
+    fieldnames = set()
     for item in data:
-        text = item.get("body_html", "")
-        writer.writerow({"text": text})
+        fieldnames.update(item.keys())
+    fieldnames = list(fieldnames)
 
-print(f"✅ Converted {len(data)} comments to CSV with 'text' column at {output_file}")
+    # Write CSV
+    with open(csv_file, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for item in data:
+            writer.writerow(item)
+
+# Example usage:
+json_to_csv("full.json", "full.csv")

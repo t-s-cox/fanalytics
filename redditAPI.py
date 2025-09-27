@@ -59,8 +59,8 @@ def extract_comments(comments_json, link_id, access_token, user_agent, max_more_
                 "created_utc": data.get("created_utc", None)
             })
             # add replies if present
-            if data.get("replies") and isinstance(data["replies"], dict):
-                queue.extend(data["replies"]["data"]["children"])
+            # if data.get("replies") and isinstance(data["replies"], dict):
+            #     queue.extend(data["replies"]["data"]["children"])
 
         elif item["kind"] == "more" and more_calls < max_more_calls:
             children = item["data"].get("children", [])
@@ -77,12 +77,15 @@ if __name__ == '__main__':
     user_agent = 'myApp/0.1 by Evening_Falcon'
 
     token = get_access_token(reddit_client_id, reddit_client_secret, user_agent)
-    post_id = '1nm0fcx' 
+    post_ids = ['1nm0fcx', '1ncjuls', '1nmu7lj', '1nre9o8', '1nripmj', '1nrgwd9', '1gnn13c', '1nm0fga']
 
-    raw = fetch_comments(post_id, token, user_agent)
-    all_comments = extract_comments(raw, post_id, token, user_agent, max_more_calls=800)
+    all_comments = []
 
-    with open("reddit2.json", "w", encoding="utf-8") as f:
+    for post_id in post_ids:
+        raw = fetch_comments(post_id, token, user_agent)
+        all_comments.extend(extract_comments(raw, post_id, token, user_agent, max_more_calls=200))
+
+    with open("full.json", "w", encoding="utf-8") as f:
         json.dump(all_comments, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ Saved {len(all_comments)} comments to reddit2.json")
+    print(f"✅ Saved {len(all_comments)} comments to full.json")
