@@ -7,91 +7,104 @@
       {
         "play_type": "Passing Touchdown",
         "play_text": "Jalon Daniels pass complete to Emmanuel Henderson Jr. for 93 yds for a TD (Laith Marjan KICK)",
-        "clock": "11:42 1st",
+        "game_time": "11:42 1st",
+        "utc_time": "16:08:04+00:00 UTC",
         "home_score": 7,
         "away_score": 0
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Tawee Walker run for 2 yds for a TD (Stephen Rusnak KICK)",
-        "clock": "6:10 1st",
+        "game_time": "6:10 1st",
+        "utc_time": "16:22:24+00:00 UTC",
         "home_score": 7,
         "away_score": 7
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Stephen Rusnak 29 yd FG GOOD",
-        "clock": "14:23 2nd",
+        "game_time": "14:23 2nd",
+        "utc_time": "16:43:42+00:00 UTC",
         "home_score": 7,
         "away_score": 10
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Laith Marjan 27 yd FG GOOD",
-        "clock": "10:00 2nd",
+        "game_time": "10:00 2nd",
+        "utc_time": "16:51:58+00:00 UTC",
         "home_score": 10,
         "away_score": 10
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Brendan Sorsby pass complete to Cyrus Allen for 10 yds for a TD (Stephen Rusnak KICK)",
-        "clock": "7:09 2nd",
+        "game_time": "7:09 2nd",
+        "utc_time": "16:59:50+00:00 UTC",
         "home_score": 10,
         "away_score": 17
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Laith Marjan 35 yd FG GOOD",
-        "clock": "3:15 2nd",
+        "game_time": "3:15 2nd",
+        "utc_time": "17:09:12+00:00 UTC",
         "home_score": 13,
         "away_score": 17
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Stephen Rusnak 43 yd FG GOOD",
-        "clock": "0:00 2nd",
+        "game_time": "0:00 2nd",
+        "utc_time": "17:31:01+00:00 UTC",
         "home_score": 13,
         "away_score": 20
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Jalon Daniels pass complete to Boden Groen for 24 yds for a TD (Laith Marjan KICK)",
-        "clock": "11:38 3rd",
+        "game_time": "11:38 3rd",
+        "utc_time": "17:58:30+00:00 UTC",
         "home_score": 20,
         "away_score": 20
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Brendan Sorsby pass complete to Cyrus Allen for 14 yds for a TD (Stephen Rusnak KICK)",
-        "clock": "8:54 3rd",
+        "game_time": "8:54 3rd",
+        "utc_time": "18:12:22+00:00 UTC",
         "home_score": 20,
         "away_score": 27
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Jalon Daniels pass complete to Emmanuel Henderson Jr. for 75 yds for a TD (Laith Marjan KICK)",
-        "clock": "8:44 3rd",
+        "game_time": "8:44 3rd",
+        "utc_time": "18:17:04+00:00 UTC",
         "home_score": 27,
         "away_score": 27
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Stephen Rusnak 24 yd FG GOOD",
-        "clock": "1:24 3rd",
+        "game_time": "1:24 3rd",
+        "utc_time": "18:33:35+00:00 UTC",
         "home_score": 27,
         "away_score": 30
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Jalon Daniels pass complete to Levi Wentz for 6 yds for a TD (Laith Marjan KICK)",
-        "clock": "1:45 4th",
+        "game_time": "1:45 4th",
+        "utc_time": "19:13:13+00:00 UTC",
         "home_score": 34,
         "away_score": 30
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Tawee Walker run for 2 yds for a TD (Stephen Rusnak KICK)",
-        "clock": "0:29 4th",
+        "game_time": "0:29 4th",
+        "utc_time": "19:28:23+00:00 UTC",
         "home_score": 34,
         "away_score": 37
       }
@@ -105,77 +118,88 @@
       {
         "play_type": "Field Goal Good",
         "play_text": "Trey Butkowski 30 yd FG GOOD",
-        "clock": "11:34 1st",
+        "game_time": "11:34 1st",
+        "utc_time": "16:10:04+00:00 UTC",
         "home_score": 3,
         "away_score": 0
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Eli Holstein pass complete to Cataurus Hicks for 39 yds for a TD (Trey Butkowski KICK)",
-        "clock": "9:53 1st",
+        "game_time": "9:53 1st",
+        "utc_time": "16:23:36+00:00 UTC",
         "home_score": 10,
         "away_score": 0
       },
       {
         "play_type": "Interception Return Touchdown",
         "play_text": "Miller Moss pass intercepted Rasheem Biles return for 75 yds for a TD (Trey Butkowski KICK)",
-        "clock": "1:41 1st",
+        "game_time": "1:41 1st",
+        "utc_time": "16:44:14+00:00 UTC",
         "home_score": 17,
         "away_score": 0
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Miller Moss run for 1 yd for a TD (Cooper Ranvier KICK)",
-        "clock": "12:32 2nd",
+        "game_time": "12:32 2nd",
+        "utc_time": "17:02:31+00:00 UTC",
         "home_score": 17,
         "away_score": 7
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Cooper Ranvier 35 yd FG GOOD",
-        "clock": "5:03 2nd",
+        "game_time": "5:03 2nd",
+        "utc_time": "17:26:35+00:00 UTC",
         "home_score": 17,
         "away_score": 10
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Miller Moss pass complete to Chris Bell for 25 yds for a TD (Cooper Ranvier KICK)",
-        "clock": "3:42 2nd",
+        "game_time": "3:42 2nd",
+        "utc_time": "17:33:35+00:00 UTC",
         "home_score": 17,
         "away_score": 17
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Trey Butkowski 37 yd FG GOOD",
-        "clock": "1:42 2nd",
+        "game_time": "1:42 2nd",
+        "utc_time": "17:46:20+00:00 UTC",
         "home_score": 20,
         "away_score": 17
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Eli Holstein pass complete to Raphael Williams Jr. for 38 yds for a TD (Trey Butkowski KICK)",
-        "clock": "0:19 2nd",
+        "game_time": "0:19 2nd",
+        "utc_time": "17:55:05+00:00 UTC",
         "home_score": 27,
         "away_score": 17
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Nick Keller 57 yd FG GOOD",
-        "clock": "11:44 3rd",
+        "game_time": "11:44 3rd",
+        "utc_time": "18:26:41+00:00 UTC",
         "home_score": 27,
         "away_score": 20
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Miller Moss pass complete to Jaleel Skinner for 12 yds for a TD (Cooper Ranvier KICK)",
-        "clock": "10:49 4th",
+        "game_time": "10:49 4th",
+        "utc_time": "19:12:35+00:00 UTC",
         "home_score": 27,
         "away_score": 27
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Miller Moss pass complete to Nate Kurisky for 9 yds for a TD (Cooper Ranvier KICK)",
-        "clock": "7:03 4th",
+        "game_time": "7:03 4th",
+        "utc_time": "19:22:26+00:00 UTC",
         "home_score": 27,
         "away_score": 34
       }
@@ -189,49 +213,56 @@
       {
         "play_type": "Field Goal Good",
         "play_text": "Todd Pelino 22 yd FG GOOD",
-        "clock": "9:42 1st",
+        "game_time": "9:42 1st",
+        "utc_time": "16:14:58+00:00 UTC",
         "home_score": 0,
         "away_score": 3
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Tripp Woody 29 yd FG GOOD",
-        "clock": "4:10 1st",
+        "game_time": "4:10 1st",
+        "utc_time": "16:25:21+00:00 UTC",
         "home_score": 3,
         "away_score": 3
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Nate Sheppard run for 49 yds for a TD (Todd Pelino KICK)",
-        "clock": "3:12 1st",
+        "game_time": "3:12 1st",
+        "utc_time": "16:30:51+00:00 UTC",
         "home_score": 3,
         "away_score": 10
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Darian Mensah pass complete to Cooper Barkate for 34 yds for a TD (Todd Pelino KICK)",
-        "clock": "12:01 2nd",
+        "game_time": "12:01 2nd",
+        "utc_time": "17:06:18+00:00 UTC",
         "home_score": 3,
         "away_score": 17
       },
       {
         "play_type": "Pass Reception",
         "play_text": "Darian Mensah pass complete to Anderson Castle for 17 yds to the SYR 12 for a 1ST down",
-        "clock": "7:19 2nd",
+        "game_time": "7:19 2nd",
+        "utc_time": "17:13:32+00:00 UTC",
         "home_score": 3,
         "away_score": 17
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Nate Sheppard run for 12 yds for a TD (Todd Pelino KICK)",
-        "clock": "5:34 3rd",
+        "game_time": "5:34 3rd",
+        "utc_time": "18:14:52+00:00 UTC",
         "home_score": 3,
         "away_score": 31
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Anderson Castle run for 13 yds for a TD (Todd Pelino KICK)",
-        "clock": "11:04 4th",
+        "game_time": "11:04 4th",
+        "utc_time": "18:41:41+00:00 UTC",
         "home_score": 3,
         "away_score": 38
       }
@@ -245,77 +276,88 @@
       {
         "play_type": "Field Goal Good",
         "play_text": "Scott Starzyk 39 yd FG GOOD",
-        "clock": "12:55 1st",
+        "game_time": "12:55 1st",
+        "utc_time": "16:14:05+00:00 UTC",
         "home_score": 3,
         "away_score": 0
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Jeremiyah Love run for 1 yd for a TD (Noah Burnette KICK)",
-        "clock": "8:16 1st",
+        "game_time": "8:16 1st",
+        "utc_time": "16:28:50+00:00 UTC",
         "home_score": 3,
         "away_score": 7
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "CJ Carr pass complete to Jeremiyah Love for 7 yds for a TD (Noah Burnette KICK)",
-        "clock": "4:14 1st",
+        "game_time": "4:14 1st",
+        "utc_time": "16:39:54+00:00 UTC",
         "home_score": 3,
         "away_score": 14
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "JacQawn McRoy run for 1 yd for a TD (Scott Starzyk KICK)",
-        "clock": "11:19 2nd",
+        "game_time": "11:19 2nd",
+        "utc_time": "16:58:03+00:00 UTC",
         "home_score": 10,
         "away_score": 14
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "CJ Carr pass complete to Will Pauling for 23 yds for a TD (Noah Burnette KICK)",
-        "clock": "8:26 2nd",
+        "game_time": "8:26 2nd",
+        "utc_time": "17:07:22+00:00 UTC",
         "home_score": 10,
         "away_score": 21
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "CJ Carr pass complete to Jeremiyah Love for 34 yds for a TD (Noah Burnette KICK)",
-        "clock": "6:04 2nd",
+        "game_time": "6:04 2nd",
+        "utc_time": "17:18:00+00:00 UTC",
         "home_score": 10,
         "away_score": 28
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Scott Starzyk 49 yd FG GOOD",
-        "clock": "3:48 2nd",
+        "game_time": "3:48 2nd",
+        "utc_time": "17:28:29+00:00 UTC",
         "home_score": 13,
         "away_score": 28
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Jeremiyah Love run for 3 yds for a TD (Noah Burnette KICK)",
-        "clock": "0:35 2nd",
+        "game_time": "0:35 2nd",
+        "utc_time": "17:43:17+00:00 UTC",
         "home_score": 13,
         "away_score": 35
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "CJ Carr pass complete to Jadarian Price for 35 yds for a TD (Noah Burnette KICK)",
-        "clock": "0:09 2nd",
+        "game_time": "0:09 2nd",
+        "utc_time": "16:53:58+00:00 UTC",
         "home_score": 13,
         "away_score": 42
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Jadarian Price run for 16 yds for a TD (Noah Burnette KICK)",
-        "clock": "1:01 3rd",
+        "game_time": "1:01 3rd",
+        "utc_time": "18:41:19+00:00 UTC",
         "home_score": 13,
         "away_score": 49
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "A. Williams run for 17 yds for a TD (Erik Schmidt KICK)",
-        "clock": "8:54 4th",
+        "game_time": "8:54 4th",
+        "utc_time": "19:03:58+00:00 UTC",
         "home_score": 13,
         "away_score": 56
       }
@@ -329,98 +371,112 @@
       {
         "play_type": "Passing Touchdown",
         "play_text": "Bryson Barnes pass complete to Miles Davis for 18 yds for a TD (Tanner Rinker KICK)",
-        "clock": "7:45 1st",
+        "game_time": "7:45 1st",
+        "utc_time": "17:02:25+00:00 UTC",
         "home_score": 0,
         "away_score": 7
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Diego Pavia pass complete to Junior Sherrill for 21 yds for a TD (Brock Taylor KICK)",
-        "clock": "1:29 1st",
+        "game_time": "1:29 1st",
+        "utc_time": "17:13:33+00:00 UTC",
         "home_score": 7,
         "away_score": 7
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Bryson Barnes pass complete to Josh Sterzer for 10 yds for a TD (Tanner Rinker KICK)",
-        "clock": "11:22 2nd",
+        "game_time": "11:22 2nd",
+        "utc_time": "17:38:01+00:00 UTC",
         "home_score": 7,
         "away_score": 14
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Diego Pavia run for 6 yds for a TD (Brock Taylor KICK)",
-        "clock": "6:14 2nd",
+        "game_time": "6:14 2nd",
+        "utc_time": "17:46:19+00:00 UTC",
         "home_score": 14,
         "away_score": 14
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Diego Pavia pass complete to Junior Sherrill for 18 yds for a TD (Brock Taylor KICK)",
-        "clock": "2:18 2nd",
+        "game_time": "2:18 2nd",
+        "utc_time": "18:00:08+00:00 UTC",
         "home_score": 21,
         "away_score": 14
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Diego Pavia pass complete to Junior Sherrill for 18 yds for a TD (Brock Taylor KICK)",
-        "clock": "1:20 2nd",
+        "game_time": "1:20 2nd",
+        "utc_time": "18:09:49+00:00 UTC",
         "home_score": 28,
         "away_score": 14
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Bryson Barnes pass complete to Braden Pegan for 9 yds for a TD (Tanner Rinker KICK)",
-        "clock": "0:20 2nd",
+        "game_time": "0:20 2nd",
+        "utc_time": "18:15:38+00:00 UTC",
         "home_score": 28,
         "away_score": 21
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Brock Taylor 46 yd FG GOOD",
-        "clock": "0:00 2nd",
+        "game_time": "0:00 2nd",
+        "utc_time": "18:18:56+00:00 UTC",
         "home_score": 31,
         "away_score": 21
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Diego Pavia pass complete to Eli Stowers for 10 yds for a TD (Brock Taylor KICK)",
-        "clock": "9:32 3rd",
+        "game_time": "9:32 3rd",
+        "utc_time": "18:52:37+00:00 UTC",
         "home_score": 38,
         "away_score": 21
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Brock Taylor 31 yd FG GOOD",
-        "clock": "4:13 3rd",
+        "game_time": "4:13 3rd",
+        "utc_time": "19:03:48+00:00 UTC",
         "home_score": 41,
         "away_score": 21
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Diego Pavia pass complete to Richie Hoskins for 53 yds for a TD (Brock Taylor KICK)",
-        "clock": "1:19 3rd",
+        "game_time": "1:19 3rd",
+        "utc_time": "19:14:58+00:00 UTC",
         "home_score": 48,
         "away_score": 21
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Jacob Conover pass complete to Brady Boyd for 14 yds for a TD (Tanner Rinker KICK)",
-        "clock": "8:23 4th",
+        "game_time": "8:23 4th",
+        "utc_time": "19:42:42+00:00 UTC",
         "home_score": 48,
         "away_score": 28
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Makhilyn Young run for 15 yds for a TD (Justin Dewers KICK)",
-        "clock": "5:21 4th",
+        "game_time": "5:21 4th",
+        "utc_time": "19:49:27+00:00 UTC",
         "home_score": 55,
         "away_score": 28
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Jacob Conover pass complete to Javen Jacobs for 6 yds for a TD (Tanner Rinker KICK)",
-        "clock": "0:55 4th",
+        "game_time": "0:55 4th",
+        "utc_time": "20:03:25+00:00 UTC",
         "home_score": 55,
         "away_score": 35
       }
@@ -434,63 +490,72 @@
       {
         "play_type": "Rush",
         "play_text": "Lucian Anderson III run for 12 yds to the OHIO 32 for a 1ST down",
-        "clock": "14:50 1st",
+        "game_time": "14:50 1st",
+        "utc_time": "16:03:43+00:00 UTC",
         "home_score": 0,
         "away_score": 0
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Drew Pyne pass complete to Kaderris Roberts for 27 yds for a TD (Jackson Kleather KICK)",
-        "clock": "10:02 1st",
+        "game_time": "10:02 1st",
+        "utc_time": "16:15:14+00:00 UTC",
         "home_score": 7,
         "away_score": 7
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Parker Navarro pass complete to Mason Williams for 19 yds for a TD (Brack Peacock KICK)",
-        "clock": "5:35 1st",
+        "game_time": "5:35 1st",
+        "utc_time": "16:32:06+00:00 UTC",
         "home_score": 14,
         "away_score": 7
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Jackson Kleather 26 yd FG GOOD",
-        "clock": "1:41 1st",
+        "game_time": "1:41 1st",
+        "utc_time": "16:41:12+00:00 UTC",
         "home_score": 14,
         "away_score": 10
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Parker Navarro pass complete to Chase Hendricks for 25 yds for a TD (Brack Peacock KICK)",
-        "clock": "10:08 2nd",
+        "game_time": "10:08 2nd",
+        "utc_time": "16:59:18+00:00 UTC",
         "home_score": 21,
         "away_score": 10
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Jackson Kleather 33 yd FG GOOD",
-        "clock": "0:45 2nd",
+        "game_time": "0:45 2nd",
+        "utc_time": "17:10:07+00:00 UTC",
         "home_score": 21,
         "away_score": 13
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Parker Navarro run for 5 yds for a TD (Brack Peacock KICK)",
-        "clock": "5:42 3rd",
+        "game_time": "5:42 3rd",
+        "utc_time": "18:16:38+00:00 UTC",
         "home_score": 28,
         "away_score": 13
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Chris McMillian run for 15 yds for a TD (Jackson Kleather KICK)",
-        "clock": "9:41 4th",
+        "game_time": "9:41 4th",
+        "utc_time": "18:51:30+00:00 UTC",
         "home_score": 28,
         "away_score": 20
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Parker Navarro run for 34 yds for a TD (Brack Peacock KICK)",
-        "clock": "6:20 4th",
+        "game_time": "6:20 4th",
+        "utc_time": "19:03:30+00:00 UTC",
         "home_score": 35,
         "away_score": 20
       }
@@ -504,28 +569,32 @@
       {
         "play_type": "Rush",
         "play_text": "Ju'Juan Johnson run for a loss of 1 yard to the MISS 7",
-        "clock": "9:44 1st",
+        "game_time": "9:44 1st",
+        "utc_time": "20:01:48+00:00 UTC",
         "home_score": 0,
         "away_score": 0
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Lucas Carneiro 25 yd FG GOOD",
-        "clock": "1:40 1st",
+        "game_time": "1:40 1st",
+        "utc_time": "20:23:12+00:00 UTC",
         "home_score": 3,
         "away_score": 7
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Kewan Lacy run for 15 yds for a TD (Lucas Carneiro KICK)",
-        "clock": "5:09 2nd",
+        "game_time": "5:09 2nd",
+        "utc_time": "21:12:44+00:00 UTC",
         "home_score": 10,
         "away_score": 7
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Trinidad Chambliss pass complete to Cayden Lee for 2 yds for a TD (Lucas Carneiro KICK)",
-        "clock": "0:13 2nd",
+        "game_time": "0:13 2nd",
+        "utc_time": "21:32:32+00:00 UTC",
         "home_score": 17,
         "away_score": 7
       }
@@ -539,63 +608,72 @@
       {
         "play_type": "Rush",
         "play_text": "Lucian Anderson III run for 12 yds to the OHIO 32 for a 1ST down",
-        "clock": "14:50 1st",
+        "game_time": "14:50 1st",
+        "utc_time": "16:03:43+00:00 UTC",
         "home_score": 0,
         "away_score": 0
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Drew Pyne pass complete to Kaderris Roberts for 27 yds for a TD (Jackson Kleather KICK)",
-        "clock": "10:02 1st",
+        "game_time": "10:02 1st",
+        "utc_time": "16:15:14+00:00 UTC",
         "home_score": 7,
         "away_score": 7
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Parker Navarro pass complete to Mason Williams for 19 yds for a TD (Brack Peacock KICK)",
-        "clock": "5:35 1st",
+        "game_time": "5:35 1st",
+        "utc_time": "16:32:06+00:00 UTC",
         "home_score": 14,
         "away_score": 7
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Jackson Kleather 26 yd FG GOOD",
-        "clock": "1:41 1st",
+        "game_time": "1:41 1st",
+        "utc_time": "16:41:12+00:00 UTC",
         "home_score": 14,
         "away_score": 10
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Parker Navarro pass complete to Chase Hendricks for 25 yds for a TD (Brack Peacock KICK)",
-        "clock": "10:08 2nd",
+        "game_time": "10:08 2nd",
+        "utc_time": "16:59:18+00:00 UTC",
         "home_score": 21,
         "away_score": 10
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Jackson Kleather 33 yd FG GOOD",
-        "clock": "0:45 2nd",
+        "game_time": "0:45 2nd",
+        "utc_time": "17:10:07+00:00 UTC",
         "home_score": 21,
         "away_score": 13
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Parker Navarro run for 5 yds for a TD (Brack Peacock KICK)",
-        "clock": "5:42 3rd",
+        "game_time": "5:42 3rd",
+        "utc_time": "18:16:38+00:00 UTC",
         "home_score": 28,
         "away_score": 13
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Chris McMillian run for 15 yds for a TD (Jackson Kleather KICK)",
-        "clock": "9:41 4th",
+        "game_time": "9:41 4th",
+        "utc_time": "18:51:30+00:00 UTC",
         "home_score": 28,
         "away_score": 20
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Parker Navarro run for 34 yds for a TD (Brack Peacock KICK)",
-        "clock": "6:20 4th",
+        "game_time": "6:20 4th",
+        "utc_time": "19:03:30+00:00 UTC",
         "home_score": 35,
         "away_score": 20
       }
@@ -609,77 +687,88 @@
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Luke Altmyer run for 12 yds for a TD (David Olano KICK)",
-        "clock": "5:49 1st",
+        "game_time": "5:49 1st",
+        "utc_time": "16:27:25 UTC",
         "home_score": 7,
         "away_score": 0
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Waymond Jordan run for 1 yd for a TD (Ryon Sayeri KICK)",
-        "clock": "1:22 1st",
+        "game_time": "1:22 1st",
+        "utc_time": "16:45:53 UTC",
         "home_score": 7,
         "away_score": 7
       },
       {
         "play_type": "Pass Reception",
         "play_text": "Luke Altmyer pass complete to Hank Beatty for 3 yds to the USC 3",
-        "clock": "11:24 2nd",
+        "game_time": "11:24 2nd",
+        "utc_time": "17:01:42 UTC",
         "home_score": 7,
         "away_score": 7
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "Ryon Sayeri 21 yd FG GOOD",
-        "clock": "0:02 2nd",
+        "game_time": "0:02 2nd",
+        "utc_time": "17:49:52 UTC",
         "home_score": 14,
         "away_score": 10
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "David Olano 45 yd FG GOOD",
-        "clock": "11:34 3rd",
+        "game_time": "11:34 3rd",
+        "utc_time": "18:20:15 UTC",
         "home_score": 17,
         "away_score": 10
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Luke Altmyer pass complete to Kaden Feagin for 64 yds for a TD (David Olano KICK)",
-        "clock": "6:59 3rd",
+        "game_time": "6:59 3rd",
+        "utc_time": "18:39:46 UTC",
         "home_score": 24,
         "away_score": 10
       },
       {
         "play_type": "Rushing Touchdown",
         "play_text": "Waymond Jordan run for 2 yds for a TD (Ryon Sayeri KICK)",
-        "clock": "1:46 3rd",
+        "game_time": "1:46 3rd",
+        "utc_time": "18:54:36 UTC",
         "home_score": 24,
         "away_score": 17
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Luke Altmyer pass complete to Justin Bowick for 25 yds for a TD (David Olano KICK)",
-        "clock": "14:34 4th",
+        "game_time": "14:34 4th",
+        "utc_time": "19:08:09 UTC",
         "home_score": 31,
         "away_score": 17
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Makai Lemon 19 Yd pass from Jayden Maiava (Jayden Maiava Pass to Makai Lemon for Two-Point Conversion)",
-        "clock": "9:54 4th",
+        "game_time": "9:54 4th",
+        "utc_time": "19:16:55 UTC",
         "home_score": 31,
         "away_score": 25
       },
       {
         "play_type": "Passing Touchdown",
         "play_text": "Jayden Maiava pass complete to Makai Lemon for 16 yds for a TD (Ryon Sayeri KICK)",
-        "clock": "1:55 4th",
+        "game_time": "1:55 4th",
+        "utc_time": "19:36:52 UTC",
         "home_score": 31,
         "away_score": 32
       },
       {
         "play_type": "Field Goal Good",
         "play_text": "David Olano 41 yd FG GOOD",
-        "clock": "0:00 4th",
+        "game_time": "0:00 4th",
+        "utc_time": "19:51:15 UTC",
         "home_score": 34,
         "away_score": 32
       }
