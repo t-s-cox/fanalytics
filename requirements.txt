@@ -1,0 +1,3 @@
+vaderSentiment
+numpy
+matplotlib
