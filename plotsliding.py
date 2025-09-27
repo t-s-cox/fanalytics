@@ -1,60 +1,53 @@
-import matplotlib.pyplot as plt
 import json
-from collections import defaultdict
+import matplotlib.pyplot as plt
+from datetime import datetime
 
-json_file = "merged.json"
+# Load JSON data
+with open("gtvwakeANNOTATED.json", "r") as f:
+    data = json.load(f)
 
-with open(json_file, "r", encoding="utf-8") as f:
-    json_data = json.load(f)
+# Convert timestamps to datetime
+for d in data:
+    d["time"] = datetime.fromtimestamp(d["timestamp"])
 
-min_created = 99999999999999
-for item in json_data:
-    item["created_utc"] = int(item.get("created_utc", 0))
-    min_created = min(min_created, int(item["created_utc"]))
-base_created = 1758383999+16000
+# Sort data by time just in case
+data.sort(key=lambda x: x["time"])
 
-relative = []
+# Define different window sizes in seconds
+window_sizes = [45]
 
-for item in json_data:
-    item['sentiment'] = int(item.get("sentiment", 0))
-    item["relative"] = int((item["created_utc"] - base_created))
-    if 0<item['relative'] < 6000:
-        relative.append(item)
+# Function to bucket predictions
+def compute_bucket_avgs(data, window_size):
+    start_time = min(d["time"] for d in data)
+    buckets = {}
+    for d in data:
+        delta = (d["time"] - start_time).total_seconds()
+        bucket = int(delta // window_size)
+        if bucket not in buckets:
+            buckets[bucket] = []
+        buckets[bucket].append(d["prediction"])
 
-# Group sentiments into 1-minute bins
-buckets = defaultdict(list)
-for item in relative:
-    rel = int(item.get("relative", 0))
-    sentiment = float(item.get("sentiment", 0))  # default neutral if missing
+    times, avgs = [], []
+    for bucket, preds in sorted(buckets.items()):
+        avg = sum(preds) / len(preds)
+        times.append(start_time.timestamp() + bucket * window_size)
+        avgs.append(avg)
 
-    bucket = rel // 120  # 120s = 2 minutes
-    buckets[bucket].append(item)
+    # Convert to datetime
+    times = [datetime.fromtimestamp(t) for t in times]
+    return times, avgs
 
-# Compute averages
-x = []
-y = []
-s = []
-negatives = []
-for bucket in sorted(buckets.keys()):
+# Plot each window size with a different color
+colors = ["blue", "orange", "green"]
+plt.figure(figsize=(9,5))
 
-    for el in buckets[bucket]:
-        if el['sentiment'] == 2:
-            negatives.append(el)
-    flux = len(buckets[bucket])
-    sent = sum(item['sentiment'] for item in buckets[bucket]) / flux if flux > 0 else 0
-    x.append(bucket * 120)  # convert bucket index back to seconds
-    y.append(flux)
-    s.append((sent+4))
+for win, color in zip(window_sizes, colors):
+    times, avgs = compute_bucket_avgs(data, win)
+    plt.plot(times, avgs, marker="o", linestyle="-", color=color, label=f"{win}s window")
 
-for neg in negatives:
-    print(f"Prompt: {neg['item']} with sentiment {neg['sentiment']}")
-
-plt.figure(figsize=(10,5))
-plt.plot(x, y, marker="o", linestyle="-", color="b", label="Flux")
-# plt.plot(x, s, marker="x", linestyle="--", color="r", label="Avg Sentiment")
+plt.title("Average Prediction with 45s Sliding Window")
 plt.xlabel("Time")
-plt.ylabel("Flux")
-plt.title("Flux Every 2 Minutes (First 24h)")
-plt.grid(True, linestyle="--", alpha=0.5)
+plt.ylabel("Average Prediction")
+plt.grid(True)
 plt.legend()
 plt.show()

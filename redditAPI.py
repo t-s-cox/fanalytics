@@ -1,3 +1,4 @@
+from asyncio import sleep
 import requests
 import json
 from secrets import reddit_client_id, reddit_client_secret
@@ -44,48 +45,89 @@ def fetch_more_comments(link_id, children_ids, access_token, user_agent):
     resp.raise_for_status()
     return resp.json()
 
-def extract_comments(comments_json, link_id, access_token, user_agent, max_more_calls=1):
+async def extract_comments(comments_json, link_id, access_token, user_agent, max_more_calls=5):
+    """
+    - max_more_calls: maximum number of extra children to fetch PER "more" object.
+                      (set to 5 to fetch up to 5 extra replies beyond data['replies'])
+    - Each batch sent to /api/morechildren will be at most 700 IDs.
+    """
+    # normalize input shape so we accept either the original reddit response
+    # or a synthetic [None, {"data": {"children": things}}] used for recursion
     queue = comments_json[1]["data"]["children"]
     results = []
-    more_calls = 0
 
-    while queue:
-        item = queue.pop(0)
+    for item in queue:
 
-        if item["kind"] == "t1":  # comment
+        print(len(item))
+
+        kind = item.get("kind")
+        if kind == "t1":  # a normal comment
             data = item["data"]
             results.append({
                 "body_html": parse_html(data.get("body_html", "")),
                 "created_utc": data.get("created_utc", None)
             })
-            # add replies if present
-            # if data.get("replies") and isinstance(data["replies"], dict):
-            #     queue.extend(data["replies"]["data"]["children"])
 
-        elif item["kind"] == "more" and more_calls < max_more_calls:
+            # recurse into replies already present in the payload
+            replies = data.get("replies")
+            if replies and isinstance(replies, dict):
+                results.extend(
+                    await extract_comments([None, replies], link_id, access_token, user_agent, max_more_calls)
+                )
+
+        elif kind == "more":
             children = item["data"].get("children", [])
+            if not children:
+                continue
+
+            # LIMIT: only fetch up to max_more_calls extra children for THIS "more" object
             children = children[:max_more_calls]
-            if children:
-                more_calls += 1
-                more_data = fetch_more_comments(link_id, children, access_token, user_agent)
-                new_items = more_data["json"]["data"]["things"]
-                queue.extend(new_items)
+
+            # batch those children into groups of up to 700 IDs and call /api/morechildren
+            for i in range(0, len(children), 700):
+                batch = children[i:i+700]
+
+                # throttle a bit to avoid rate limits
+                await sleep(0.5)
+
+                try:
+                    resp = fetch_more_comments(link_id, batch, access_token, user_agent)
+                except Exception as e:
+                    print(f"Warning: fetch_more_comments failed for batch (len={len(batch)}): {e}")
+                    continue
+
+                # /api/morechildren returns under resp["json"]["data"]["things"]
+                things = resp.get("json", {}).get("data", {}).get("things", [])
+                if not things:
+                    continue
+
+                # treat the returned 'things' like children and recurse to parse them
+                results.extend(
+                    await extract_comments([None, {"data": {"children": things}}], link_id, access_token, user_agent, max_more_calls)
+                )
 
     return results
 
-if __name__ == '__main__':
+
+
+async def main():
     user_agent = 'myApp/0.1 by Evening_Falcon'
 
     token = get_access_token(reddit_client_id, reddit_client_secret, user_agent)
-    post_ids = ['1nm0fcx', '1ncjuls', '1nmu7lj', '1nre9o8', '1nripmj', '1nrgwd9', '1gnn13c', '1nm0fga']
+    post_ids = ['1nrxdx9']
 
     all_comments = []
 
     for post_id in post_ids:
         raw = fetch_comments(post_id, token, user_agent)
-        all_comments.extend(extract_comments(raw, post_id, token, user_agent, max_more_calls=200))
+        s = await extract_comments(raw, post_id, token, user_agent, max_more_calls=5800)
+        all_comments.extend(s)
 
-    with open("full.json", "w", encoding="utf-8") as f:
+    with open("gtvwake.json", "w", encoding="utf-8") as f:
         json.dump(all_comments, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ Saved {len(all_comments)} comments to full.json")
+    print(f"✅ Saved {len(all_comments)} comments to gtvwake.json")
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
