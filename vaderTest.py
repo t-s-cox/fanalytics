@@ -7,12 +7,15 @@ scores = analyzer.polarity_scores(test)
 print(f"\nTest Sentence: {test}\n")
 print(f"Sentiment Scores: {scores}")
 print(f"Negative Sentiment: {scores['neg']*100:0.3}%")
-print(f"Neutral Sentiment: {scores['neu']*100:0.3}%")
 print(f"Positive Sentiment: {scores['pos']*100:0.3}%\n")
 
-if scores['compound'] >= 0.05:
+overall = scores['pos'] / (scores['pos'] + scores['neg'])
+
+print(f"Overall Score: {overall*100:0.3}%")
+
+if overall >=0.2:
     print("Overall Sentiment: Positive")
-elif scores['compound'] <= -0.05:
+elif overall <= 0.2:
     print("Overall Sentiment: Negative")
 else:
     print("Overall Sentiment: Neutral")
