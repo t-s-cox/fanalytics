@@ -74,7 +74,8 @@ def print_game_summary(game_data: Dict[str, Any]):
     if scoring_plays:
         for i, play in enumerate(scoring_plays, 1):
             play_text = play.get('play_text', 'Unknown')
-            clock = play.get('clock', 'Unknown')
+            game_time = play.get('game_time', play.get('clock', 'Unknown'))  # fallback for old format
+            utc_time = play.get('utc_time', 'Unknown')
             home_score = play.get('home_score', 0)
             away_score = play.get('away_score', 0)
             
@@ -82,8 +83,8 @@ def print_game_summary(game_data: Dict[str, Any]):
             
             # Print play description
             print(f"{i:2d}. {play_text}")
-            # Print clock and score on second line with indentation
-            print(f"    {clock:<20} {score_text}")
+            # Print game time, UTC time, and score on second line with indentation
+            print(f"    {game_time:<15} | {utc_time:<20} | {score_text}")
             print()  # Add blank line between plays
     else:
         print("No scoring plays found.")
