@@ -1,3 +1,8 @@
 vaderSentiment
 numpy
 matplotlib
+transformers
+datasets
+torch
+torchvision
+torchaudio
