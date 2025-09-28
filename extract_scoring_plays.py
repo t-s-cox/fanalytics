@@ -85,7 +85,7 @@ def extract_scoring_plays(json_file_path: str) -> List[Dict[str, Any]]:
             result = drive.get('result', '')
             
             # Check if result contains any scoring keywords
-            scoring_keywords = ["Touchdown", "Field Goal", "Safety"]
+            scoring_keywords = ["Touchdown", "Field Goal Good", "Safety"]
             is_scoring_play = any(keyword in result for keyword in scoring_keywords)
             
             if is_scoring_play:
@@ -120,7 +120,7 @@ def extract_scoring_plays(json_file_path: str) -> List[Dict[str, Any]]:
                     
                     if not is_administrative:
                         # Check if this play is actually a scoring play
-                        scoring_play_types = ["Touchdown", "Field Goal", "Safety", "FG"]
+                        scoring_play_types = ["Touchdown", "Field Goal Good", "Safety", "FG"]
                         is_actual_scoring_play = any(scoring_type in play_type for scoring_type in scoring_play_types)
                         is_actual_scoring_play = is_actual_scoring_play or any(scoring_type in play_text for scoring_type in scoring_play_types)
                         
@@ -156,7 +156,7 @@ def extract_scoring_plays(json_file_path: str) -> List[Dict[str, Any]]:
                 
                 # Format wall clock time (convert from UTC ISO format to readable format)
                 utc_time = wall_clock
-                if wall_clock != 'Unknown' and 'T' in wall_clock:
+                if wall_clock and wall_clock != 'Unknown' and 'T' in wall_clock:
                     try:
                         # Extract just the time portion and remove milliseconds/timezone
                         time_part = wall_clock.split('T')[1].split('.')[0]
