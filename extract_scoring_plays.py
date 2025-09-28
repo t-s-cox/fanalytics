@@ -23,7 +23,7 @@ def extract_scoring_plays(json_file_path: str) -> List[Dict[str, Any]]:
         List where each element represents a game dictionary containing:
         - home_team: name of home team
         - away_team: name of away team  
-        - scoring_plays: list of tuples with (playType, playText, clock, homeScore, awayScore)
+        - scoring_plays: list of tuples with (playType, playText, gameTime, utcTime, homeScore, awayScore)
     """
     try:
         with open(json_file_path, 'r', encoding='utf-8') as file:
@@ -145,16 +145,27 @@ def extract_scoring_plays(json_file_path: str) -> List[Dict[str, Any]]:
                 play_text = scoring_play.get('playText', 'Unknown')
                 clock = scoring_play.get('clock', 'Unknown')
                 period = scoring_play.get('period', 1)
+                wall_clock = scoring_play.get('wallClock', 'Unknown')
                 home_score = scoring_play.get('homeScore', 0)
                 away_score = scoring_play.get('awayScore', 0)
                 
-                # Format time with period
+                # Format game time with period
                 period_names = {1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "OT"}
                 period_str = period_names.get(period, f"{period}OT" if period > 4 else "1st")
-                formatted_time = f"{clock} {period_str}"
+                game_time = f"{clock} {period_str}"
                 
-                # Create tuple and add to game's scoring plays
-                scoring_play_tuple = (play_type, play_text, formatted_time, home_score, away_score)
+                # Format wall clock time (convert from UTC ISO format to readable format)
+                utc_time = wall_clock
+                if wall_clock != 'Unknown' and 'T' in wall_clock:
+                    try:
+                        # Extract just the time portion and remove milliseconds/timezone
+                        time_part = wall_clock.split('T')[1].split('.')[0]
+                        utc_time = f"{time_part} UTC"
+                    except:
+                        utc_time = wall_clock
+                
+                # Create tuple with both times and add to game's scoring plays
+                scoring_play_tuple = (play_type, play_text, game_time, utc_time, home_score, away_score)
                 game_scoring_plays.append(scoring_play_tuple)
         
         # Create game data with team information
@@ -191,10 +202,11 @@ def print_scoring_plays(all_games_scoring_plays: List[Dict[str, Any]]):
             print("No scoring plays found.")
             continue
         
-        for play_index, (play_type, play_text, clock, home_score, away_score) in enumerate(game_scoring_plays):
+        for play_index, (play_type, play_text, game_time, utc_time, home_score, away_score) in enumerate(game_scoring_plays):
             print(f"  Scoring Play {play_index + 1}:")
             print(f"    Type: {play_type}")
-            print(f"    Clock: {clock}")
+            print(f"    Game Time: {game_time}")
+            print(f"    UTC Time: {utc_time}")
             print(f"    Score: {home_team} {home_score} - {away_team} {away_score}")
             print(f"    Description: {play_text}")
             print()
@@ -220,11 +232,12 @@ def save_to_json(all_games_scoring_plays: List[Dict[str, Any]], output_file: str
                 {
                     'play_type': play_type,
                     'play_text': play_text,
-                    'clock': clock,
+                    'game_time': game_time,
+                    'utc_time': utc_time,
                     'home_score': home_score,
                     'away_score': away_score
                 }
-                for play_type, play_text, clock, home_score, away_score in game_data['scoring_plays']
+                for play_type, play_text, game_time, utc_time, home_score, away_score in game_data['scoring_plays']
             ]
         }
         json_output.append(formatted_game_data)

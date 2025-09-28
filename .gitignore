@@ -3,3 +3,4 @@ secrets.py
 redditcomments.csv
 bert_sentiment_regression
 BERT/model.safetensors
+hackgtFrontEnd/node_modules
