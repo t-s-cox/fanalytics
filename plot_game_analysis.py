@@ -387,20 +387,95 @@ def save_data_points_json(score_times: List[float], total_scores: List[int],
     print(f"Data points saved as '{output_path}'")
 
 
-def plot_sentiment_analysis(times: List[float], avgs: List[float], away_team: str, home_team: str, output_dir: str = "outputGraphs"):
+def apply_plot_styling(fig, axes, is_dark_mode=False):
     """
-    Create a separate sentiment analysis plot showing both raw and smoothed sentiment curves.
+    Apply consistent styling to plots for light or dark mode.
+    
+    Args:
+        fig: matplotlib figure object
+        axes: matplotlib axes object or list of axes
+        is_dark_mode: boolean indicating whether to apply dark mode styling
+    """
+    if not isinstance(axes, (list, tuple)):
+        axes = [axes]
+    
+    if is_dark_mode:
+        # Dark mode styling
+        bg_color = '#232d3f'
+        text_color = '#ffffff'
+        grid_color = '#404040'
+        grid_alpha = 0.3
+    else:
+        # Light mode styling (default)
+        bg_color = '#ffffff'
+        text_color = '#000000'
+        grid_color = 'gray'
+        grid_alpha = 0.3
+    
+    # Apply background color to figure and axes
+    fig.patch.set_facecolor(bg_color)
+    
+    for ax in axes:
+        ax.set_facecolor(bg_color)
+        
+        # Set text colors
+        ax.xaxis.label.set_color(text_color)
+        ax.yaxis.label.set_color(text_color)
+        ax.title.set_color(text_color)
+        
+        # Set tick colors
+        ax.tick_params(axis='x', colors=text_color)
+        ax.tick_params(axis='y', colors=text_color)
+        
+        # Set spine colors
+        for spine in ax.spines.values():
+            spine.set_color(text_color)
+        
+        # Update grid
+        ax.grid(True, color=grid_color, alpha=grid_alpha)
+        
+        # Update legend if it exists
+        legend = ax.get_legend()
+        if legend:
+            legend.get_frame().set_facecolor(bg_color)
+            legend.get_frame().set_edgecolor(text_color)
+            for text in legend.get_texts():
+                text.set_color(text_color)
+        
+        # Update all text objects in the axes (like annotations, quarter markers, etc.)
+        for text in ax.texts:
+            text.set_color(text_color)
+
+
+def get_line_widths(is_dark_mode=False):
+    """Get appropriate line widths for light or dark mode."""
+    if is_dark_mode:
+        return {
+            'main_line': 3.0,      # Thicker for visibility
+            'secondary_line': 2.5,  # Thicker for visibility
+            'thin_line': 2.0       # Thicker for visibility
+        }
+    else:
+        return {
+            'main_line': 2.5,      # Standard thickness
+            'secondary_line': 2.0,  # Standard thickness
+            'thin_line': 1.5       # Standard thickness
+        }
+
+
+def create_sentiment_plot_data(times: List[float], avgs: List[float]):
+    """
+    Prepare sentiment data for plotting.
     
     Args:
         times: List of time points for sentiment data
         avgs: List of sentiment averages
-        away_team: Away team name
-        home_team: Home team name
-        output_dir: Directory to save output plots
+        
+    Returns:
+        Tuple of (filtered_times, filtered_sentiment, smooth_times, smooth_sentiment)
     """
     if not times or not avgs:
-        print("No sentiment data available for sentiment plot")
-        return
+        return None, None, None, None
     
     # Convert to numpy arrays for processing
     sentiment_times_np = np.array(times)
@@ -412,11 +487,7 @@ def plot_sentiment_analysis(times: List[float], avgs: List[float], away_team: st
     filtered_sentiment = sentiment_values_np[mask]
     
     if len(filtered_times) == 0:
-        print("No sentiment data in game time range (0-60 minutes)")
-        return
-    
-    # Create the sentiment plot
-    fig, ax = plt.subplots(1, 1, figsize=(12, 6))
+        return None, None, None, None
     
     # Create and plot smoothed sentiment if we have enough points
     if len(filtered_times) > 3:
@@ -496,46 +567,90 @@ def plot_sentiment_analysis(times: List[float], avgs: List[float], away_team: st
             smooth_times = filtered_times
             smooth_sentiment = filtered_sentiment
         
-        # Fill area under the smoothed sentiment curve
-        color_fill = 'tab:blue'
-        ax.fill_between(smooth_times, 0, smooth_sentiment, color=color_fill, alpha=0.4, 
-                       label='Sentiment', edgecolor=color_fill, linewidth=2)
+    return filtered_times, filtered_sentiment, smooth_times, smooth_sentiment
+
+
+def plot_sentiment_analysis(times: List[float], avgs: List[float], away_team: str, home_team: str, output_dir: str = "outputGraphs"):
+    """
+    Create sentiment analysis plots in both light and dark modes.
     
-    # Set labels and formatting
-    ax.set_xlabel('Game Time (minutes)', fontsize=12)
-    ax.set_ylabel('Sentiment (0 = Negative, 1 = Positive)', fontsize=12)
-    ax.set_ylim(0, 1)
-    ax.set_xlim(0, 65)
-    ax.grid(True, alpha=0.3)
+    Args:
+        times: List of time points for sentiment data
+        avgs: List of sentiment averages
+        away_team: Away team name
+        home_team: Home team name
+        output_dir: Directory to save output plots
+    """
+    if not times or not avgs:
+        print("No sentiment data available for sentiment plot")
+        return
     
-    # Add quarter markers
-    quarter_times = [0, 15, 30, 45, 60]
-    quarter_labels = ['Start', 'Q2', 'Q3', 'Q4', 'End']
-    for qt, ql in zip(quarter_times, quarter_labels):
-        ax.axvline(x=qt, color='gray', linestyle='--', alpha=0.5)
-        ax.text(qt, ax.get_ylim()[1] * 0.95, ql, rotation=90, 
-                verticalalignment='top', fontsize=10, alpha=0.7)
+    # Get processed sentiment data
+    filtered_times, filtered_sentiment, smooth_times, smooth_sentiment = create_sentiment_plot_data(times, avgs)
     
-    # Add horizontal reference lines
-    ax.axhline(y=0.5, color='gray', linestyle='-', alpha=0.3, linewidth=1)
-    ax.text(2, 0.52, 'Neutral', fontsize=10, alpha=0.7)
-    
-    # Add title and legend
-    ax.set_title(f'{away_team} @ {home_team}\nSentiment Envelope Over Game Time', 
-                fontsize=14, fontweight='bold', pad=20)
-    ax.legend(loc='upper right')
+    if filtered_times is None:
+        print("No sentiment data in game time range (0-60 minutes)")
+        return
     
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
     
-    # Save the sentiment plot
-    sentiment_filename = f"sentiment_analysis_{away_team.lower().replace(' ', '_')}_{home_team.lower().replace(' ', '_')}.png"
-    sentiment_path = os.path.join(output_dir, sentiment_filename)
-    plt.savefig(sentiment_path, dpi=300, bbox_inches='tight')
-    print(f"Sentiment plot saved as '{sentiment_path}'")
-    
-    # Close the plot to free memory
-    plt.close()
+    # Generate both light and dark mode plots
+    for is_dark_mode in [False, True]:
+        mode_prefix = "DARK_" if is_dark_mode else "LIGHT_"
+        
+        # Create the sentiment plot
+        fig, ax = plt.subplots(1, 1, figsize=(12, 6))
+        
+        # Get appropriate line widths
+        line_widths = get_line_widths(is_dark_mode)
+        
+        # Fill area under the smoothed sentiment curve
+        color_fill = '#4a9eff' if is_dark_mode else 'tab:blue'
+        fill_alpha = 0.5 if is_dark_mode else 0.4
+        edge_width = line_widths['secondary_line']
+        
+        ax.fill_between(smooth_times, 0, smooth_sentiment, color=color_fill, alpha=fill_alpha, 
+                       label='Sentiment', edgecolor=color_fill, linewidth=edge_width)
+        
+        # Set labels and formatting
+        ax.set_xlabel('Game Time (minutes)', fontsize=12)
+        ax.set_ylabel('Sentiment (0 = Negative, 1 = Positive)', fontsize=12)
+        ax.set_ylim(0, 1)
+        ax.set_xlim(0, 65)
+        
+        # Add quarter markers
+        quarter_times = [0, 15, 30, 45, 60]
+        quarter_labels = ['Start', 'Q2', 'Q3', 'Q4', 'End']
+        marker_color = '#cccccc' if is_dark_mode else 'gray'
+        marker_alpha = 0.6 if is_dark_mode else 0.5
+        text_color = '#ffffff' if is_dark_mode else '#000000'
+        
+        for qt, ql in zip(quarter_times, quarter_labels):
+            ax.axvline(x=qt, color=marker_color, linestyle='--', alpha=marker_alpha)
+            ax.text(qt, 0.95, ql, rotation=90, 
+                    verticalalignment='top', fontsize=10, alpha=0.9, color=text_color)
+        
+        # Add horizontal reference lines
+        ax.axhline(y=0.5, color=marker_color, linestyle='-', alpha=0.4, linewidth=1)
+        ax.text(2, 0.52, 'Neutral', fontsize=10, alpha=0.9, color=text_color)
+        
+        # Add title and legend
+        ax.set_title(f'{away_team} @ {home_team}\nSentiment Over Game Time', 
+                    fontsize=14, fontweight='bold', pad=20)
+        ax.legend(loc='upper right')
+        
+        # Apply styling
+        apply_plot_styling(fig, ax, is_dark_mode)
+        
+        # Save the sentiment plot
+        sentiment_filename = f"{mode_prefix}sentiment_analysis_{away_team.lower().replace(' ', '_')}_{home_team.lower().replace(' ', '_')}.png"
+        sentiment_path = os.path.join(output_dir, sentiment_filename)
+        plt.savefig(sentiment_path, dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor())
+        print(f"Sentiment plot saved as '{sentiment_path}'")
+        
+        # Close the plot to free memory
+        plt.close()
 
 
 def plot_game_analysis(export_file: str, scoring_file: str = "Data/scoring_plays.json", output_dir: str = "outputGraphs"):
@@ -613,7 +728,7 @@ def plot_game_analysis(export_file: str, scoring_file: str = "Data/scoring_plays
     # Set x-axis limits (0-60 minutes for regulation)
     ax1.set_xlim(0, 65)
     
-    # Add quarter markers
+    # Add quarter markers (will be styled later)
     quarter_times = [0, 15, 30, 45, 60]
     quarter_labels = ['Start', 'Q2', 'Q3', 'Q4', 'End']
     for qt, ql in zip(quarter_times, quarter_labels):
@@ -649,7 +764,7 @@ def plot_game_analysis(export_file: str, scoring_file: str = "Data/scoring_plays
     ax2.grid(True, alpha=0.3)
     ax2.set_xlim(0, 65)
     
-    # Add quarter markers to second plot
+    # Add quarter markers to second plot (will be styled later)
     for qt, ql in zip(quarter_times, quarter_labels):
         ax2.axvline(x=qt, color='gray', linestyle='--', alpha=0.5)
         ax2.text(qt, ax2.get_ylim()[1] * 0.95, ql, rotation=90, 
@@ -666,18 +781,49 @@ def plot_game_analysis(export_file: str, scoring_file: str = "Data/scoring_plays
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
     
-    # Save the plot
-    output_filename = f"game_analysis_{away_team.lower().replace(' ', '_')}_{home_team.lower().replace(' ', '_')}.png"
-    output_path = os.path.join(output_dir, output_filename)
-    plt.savefig(output_path, dpi=300, bbox_inches='tight')
-    print(f"Plot saved as '{output_path}'")
-    
-    # Save data points as JSON
+    # Save data points as JSON (only once)
     save_data_points_json(score_times, total_scores, prediction_times, predicted_scores,
                          sentiment_prediction_times, sentiment_predicted_scores,
                          final_score, away_team, home_team, output_dir)
     
-    # Generate separate sentiment analysis plot
+    # Generate both light and dark mode plots
+    for is_dark_mode in [False, True]:
+        mode_prefix = "DARK_" if is_dark_mode else "LIGHT_"
+        
+        # Get appropriate line widths
+        line_widths = get_line_widths(is_dark_mode)
+        
+        # Update line widths for dark mode
+        if is_dark_mode:
+            # Make lines thicker and more visible for dark mode
+            for line in ax1.get_lines():
+                current_width = line.get_linewidth()
+                line.set_linewidth(current_width * 1.2)  # 20% thicker
+                
+            for line in ax2.get_lines():
+                current_width = line.get_linewidth()
+                line.set_linewidth(current_width * 1.2)  # 20% thicker
+        
+        # Apply styling
+        apply_plot_styling(fig, [ax1, ax2], is_dark_mode)
+        
+        # Save the plot
+        output_filename = f"{mode_prefix}game_analysis_{away_team.lower().replace(' ', '_')}_{home_team.lower().replace(' ', '_')}.png"
+        output_path = os.path.join(output_dir, output_filename)
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor())
+        print(f"Plot saved as '{output_path}'")
+        
+        # Reset line widths for next iteration
+        if is_dark_mode:
+            for line in ax1.get_lines():
+                current_width = line.get_linewidth()
+                line.set_linewidth(current_width / 1.2)  # Reset to original
+                
+            for line in ax2.get_lines():
+                current_width = line.get_linewidth()
+                line.set_linewidth(current_width / 1.2)  # Reset to original
+    
+    # Generate separate sentiment analysis plot (both modes)
     plot_sentiment_analysis(times, avgs, away_team, home_team, output_dir)
     
     # Close the plot to free memory
