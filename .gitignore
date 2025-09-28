@@ -1,8 +1,9 @@
 secrets.py
-*.json
+jsons
 redditcomments.csv
 bert_sentiment_regression
 BERT/model.safetensors
 hackgtFrontEnd/node_modules
 bertFineTune.py
 bertFineTune.py
+scrapeodds.py
