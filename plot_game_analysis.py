@@ -307,6 +307,237 @@ def calculate_total_scores_over_time(scoring_plays: List[Dict], sentiment_times:
     return game_times, total_scores, prediction_times, predicted_scores, sentiment_prediction_times, sentiment_predicted_scores
 
 
+def save_data_points_json(score_times: List[float], total_scores: List[int], 
+                         prediction_times: List[float], predicted_scores: List[float],
+                         sentiment_prediction_times: List[float], sentiment_predicted_scores: List[float],
+                         final_score: int, away_team: str, home_team: str, output_dir: str = "outputGraphs"):
+    """
+    Save data points from the game analysis as JSON file.
+    
+    Args:
+        score_times: List of game times for scoring plays
+        total_scores: List of total scores at each time point
+        prediction_times: List of times for pace-based predictions
+        predicted_scores: List of pace-based predicted scores
+        sentiment_prediction_times: List of times for sentiment-based predictions
+        sentiment_predicted_scores: List of sentiment-based predicted scores
+        final_score: Final actual score of the game
+        away_team: Away team name
+        home_team: Home team name
+        output_dir: Directory to save JSON files
+    """
+    # Create aligned data arrays - use scoring times as the base timeline
+    data_points = {
+        "time": [],
+        "total_score": [],
+        "raw_prediction": [],
+        "sentiment_prediction": [],
+        "raw_error": [],
+        "sentiment_error": []
+    }
+    
+    # For each scoring time point, find corresponding prediction values
+    for i, time_point in enumerate(score_times):
+        data_points["time"].append(time_point)
+        data_points["total_score"].append(total_scores[i])
+        
+        # Find closest prediction values for this time point
+        raw_pred = None
+        sentiment_pred = None
+        
+        # Find raw prediction at this time (or closest available)
+        if prediction_times:
+            # Find the prediction value at or before this time
+            available_preds = [(t, p) for t, p in zip(prediction_times, predicted_scores) if t <= time_point]
+            if available_preds:
+                raw_pred = available_preds[-1][1]  # Get the most recent prediction
+            elif time_point == 0:
+                raw_pred = None  # No prediction at game start
+        
+        # Find sentiment prediction at this time (or closest available)
+        if sentiment_prediction_times:
+            # Find the sentiment prediction value at or before this time
+            available_sentiment = [(t, p) for t, p in zip(sentiment_prediction_times, sentiment_predicted_scores) if t <= time_point]
+            if available_sentiment:
+                sentiment_pred = available_sentiment[-1][1]  # Get the most recent prediction
+            elif time_point == 0:
+                sentiment_pred = None  # No prediction at game start
+        
+        # Append predictions (None for time 0)
+        data_points["raw_prediction"].append(raw_pred)
+        data_points["sentiment_prediction"].append(sentiment_pred)
+        
+        # Calculate errors (prediction - actual final score)
+        raw_error = None if raw_pred is None else raw_pred - final_score
+        sentiment_error = None if sentiment_pred is None else sentiment_pred - final_score
+        
+        data_points["raw_error"].append(raw_error)
+        data_points["sentiment_error"].append(sentiment_error)
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Save JSON file
+    output_filename = f"data_points_{away_team.lower().replace(' ', '_')}_{home_team.lower().replace(' ', '_')}.json"
+    output_path = os.path.join(output_dir, output_filename)
+    
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(data_points, f, indent=2)
+    
+    print(f"Data points saved as '{output_path}'")
+
+
+def plot_sentiment_analysis(times: List[float], avgs: List[float], away_team: str, home_team: str, output_dir: str = "outputGraphs"):
+    """
+    Create a separate sentiment analysis plot showing both raw and smoothed sentiment curves.
+    
+    Args:
+        times: List of time points for sentiment data
+        avgs: List of sentiment averages
+        away_team: Away team name
+        home_team: Home team name
+        output_dir: Directory to save output plots
+    """
+    if not times or not avgs:
+        print("No sentiment data available for sentiment plot")
+        return
+    
+    # Convert to numpy arrays for processing
+    sentiment_times_np = np.array(times)
+    sentiment_values_np = np.array(avgs)
+    
+    # Filter sentiment data to game time range (0-60 minutes)
+    mask = (sentiment_times_np >= 0) & (sentiment_times_np <= 60)
+    filtered_times = sentiment_times_np[mask]
+    filtered_sentiment = sentiment_values_np[mask]
+    
+    if len(filtered_times) == 0:
+        print("No sentiment data in game time range (0-60 minutes)")
+        return
+    
+    # Create the sentiment plot
+    fig, ax = plt.subplots(1, 1, figsize=(12, 6))
+    
+    # Create and plot smoothed sentiment if we have enough points
+    if len(filtered_times) > 3:
+        # Work with original discrete time points to find exact maxima
+        def create_exact_envelope(times_orig, sentiment_orig, time_window=0.5):
+            """Create envelope using exact maximum sentiment at each discrete time point."""
+            # Round times to create discrete bins
+            time_resolution = 0.1  # 0.1 minute (6 second) resolution
+            rounded_times = np.round(times_orig / time_resolution) * time_resolution
+            
+            # Find unique time points
+            unique_times = np.unique(rounded_times)
+            envelope_times = []
+            envelope_values = []
+            
+            for target_time in unique_times:
+                # Find all sentiment values within this time bin
+                time_mask = np.abs(rounded_times - target_time) < time_resolution/2
+                if np.any(time_mask):
+                    # Get maximum sentiment at this time point
+                    max_sentiment = np.max(sentiment_orig[time_mask])
+                    envelope_times.append(target_time)
+                    envelope_values.append(max_sentiment)
+            
+            return np.array(envelope_times), np.array(envelope_values)
+        
+        # Get exact envelope points
+        envelope_times, envelope_values = create_exact_envelope(filtered_times, filtered_sentiment)
+        
+        if len(envelope_times) > 1:
+            # Create piecewise interpolation between successive time indices
+            def create_piecewise_envelope(env_times, env_values, points_per_segment=20):
+                """Create piecewise smooth curves between consecutive time points."""
+                all_times = []
+                all_values = []
+                
+                # For each pair of consecutive envelope points, create smooth interpolation
+                for i in range(len(env_times) - 1):
+                    start_time = env_times[i]
+                    end_time = env_times[i + 1]
+                    start_value = env_values[i] 
+                    end_value = env_values[i + 1]
+                    
+                    # Create time points for this segment (excluding the end point to avoid duplication)
+                    segment_times = np.linspace(start_time, end_time, points_per_segment, endpoint=False)
+                    
+                    # Simple smooth interpolation between the two points
+                    # Use cosine interpolation for smoothness
+                    t_normalized = (segment_times - start_time) / (end_time - start_time)
+                    # Cosine interpolation creates smooth S-curve
+                    smooth_t = 0.5 * (1 - np.cos(np.pi * t_normalized))
+                    segment_values = start_value + (end_value - start_value) * smooth_t
+                    
+                    all_times.extend(segment_times)
+                    all_values.extend(segment_values)
+                
+                # Add the final point
+                all_times.append(env_times[-1])
+                all_values.append(env_values[-1])
+                
+                return np.array(all_times), np.array(all_values)
+            
+            # Create piecewise smooth envelope
+            smooth_times, smooth_sentiment = create_piecewise_envelope(envelope_times, envelope_values)
+            
+            # Ensure the interpolated curve never goes below any original data point
+            # by checking against the original data at each interpolated time
+            for i, t in enumerate(smooth_times):
+                # Find original sentiment values near this time
+                nearby_mask = np.abs(filtered_times - t) <= 0.15  # Within 9 seconds
+                if np.any(nearby_mask):
+                    max_nearby = np.max(filtered_sentiment[nearby_mask])
+                    smooth_sentiment[i] = max(smooth_sentiment[i], max_nearby)
+                    
+        else:
+            # Not enough envelope points, use original data
+            smooth_times = filtered_times
+            smooth_sentiment = filtered_sentiment
+        
+        # Fill area under the smoothed sentiment curve
+        color_fill = 'tab:blue'
+        ax.fill_between(smooth_times, 0, smooth_sentiment, color=color_fill, alpha=0.4, 
+                       label='Sentiment', edgecolor=color_fill, linewidth=2)
+    
+    # Set labels and formatting
+    ax.set_xlabel('Game Time (minutes)', fontsize=12)
+    ax.set_ylabel('Sentiment (0 = Negative, 1 = Positive)', fontsize=12)
+    ax.set_ylim(0, 1)
+    ax.set_xlim(0, 65)
+    ax.grid(True, alpha=0.3)
+    
+    # Add quarter markers
+    quarter_times = [0, 15, 30, 45, 60]
+    quarter_labels = ['Start', 'Q2', 'Q3', 'Q4', 'End']
+    for qt, ql in zip(quarter_times, quarter_labels):
+        ax.axvline(x=qt, color='gray', linestyle='--', alpha=0.5)
+        ax.text(qt, ax.get_ylim()[1] * 0.95, ql, rotation=90, 
+                verticalalignment='top', fontsize=10, alpha=0.7)
+    
+    # Add horizontal reference lines
+    ax.axhline(y=0.5, color='gray', linestyle='-', alpha=0.3, linewidth=1)
+    ax.text(2, 0.52, 'Neutral', fontsize=10, alpha=0.7)
+    
+    # Add title and legend
+    ax.set_title(f'{away_team} @ {home_team}\nSentiment Envelope Over Game Time', 
+                fontsize=14, fontweight='bold', pad=20)
+    ax.legend(loc='upper right')
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Save the sentiment plot
+    sentiment_filename = f"sentiment_analysis_{away_team.lower().replace(' ', '_')}_{home_team.lower().replace(' ', '_')}.png"
+    sentiment_path = os.path.join(output_dir, sentiment_filename)
+    plt.savefig(sentiment_path, dpi=300, bbox_inches='tight')
+    print(f"Sentiment plot saved as '{sentiment_path}'")
+    
+    # Close the plot to free memory
+    plt.close()
+
+
 def plot_game_analysis(export_file: str, scoring_file: str = "Data/scoring_plays.json", output_dir: str = "outputGraphs"):
     """
     Create a plot combining total score and sentiment data over game time.
@@ -440,6 +671,14 @@ def plot_game_analysis(export_file: str, scoring_file: str = "Data/scoring_plays
     output_path = os.path.join(output_dir, output_filename)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     print(f"Plot saved as '{output_path}'")
+    
+    # Save data points as JSON
+    save_data_points_json(score_times, total_scores, prediction_times, predicted_scores,
+                         sentiment_prediction_times, sentiment_predicted_scores,
+                         final_score, away_team, home_team, output_dir)
+    
+    # Generate separate sentiment analysis plot
+    plot_sentiment_analysis(times, avgs, away_team, home_team, output_dir)
     
     # Close the plot to free memory
     plt.close()
