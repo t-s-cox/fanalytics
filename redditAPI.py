@@ -114,19 +114,19 @@ async def main():
     user_agent = 'myApp/0.1 by Evening_Falcon'
 
     token = get_access_token(reddit_client_id, reddit_client_secret, user_agent)
-    post_ids = ['1nrxdx9']
+    post_ids = ['1ns2kpg']
 
     all_comments = []
 
     for post_id in post_ids:
         raw = fetch_comments(post_id, token, user_agent)
-        s = await extract_comments(raw, post_id, token, user_agent, max_more_calls=5800)
+        s = await extract_comments(raw, post_id, token, user_agent, max_more_calls=5000)
         all_comments.extend(s)
 
-    with open("gtvwake.json", "w", encoding="utf-8") as f:
+    with open("jsons/lsuvolemiss.json", "w", encoding="utf-8") as f:
         json.dump(all_comments, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ Saved {len(all_comments)} comments to gtvwake.json")
+    print(f"✅ Saved {len(all_comments)} comments to lsuvolemiss.json")
 
 if __name__ == "__main__":
     import asyncio

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 # Load JSON data
-with open("gtvwakeANNOTATED.json", "r") as f:
+with open("jsons/lsuvolemissResults.json", "r") as f:
     data = json.load(f)
 
 # Convert timestamps to datetime
@@ -14,7 +14,10 @@ for d in data:
 data.sort(key=lambda x: x["time"])
 
 # Define different window sizes in seconds
-window_sizes = [45]
+window_sizes = [90]
+confidence_min = 3
+
+mins = []
 
 # Function to bucket predictions
 def compute_bucket_avgs(data, window_size):
@@ -25,13 +28,19 @@ def compute_bucket_avgs(data, window_size):
         bucket = int(delta // window_size)
         if bucket not in buckets:
             buckets[bucket] = []
-        buckets[bucket].append(d["prediction"])
+        buckets[bucket].append(d)
+        mins.append((d["prediction"], d['text']))
+
+    total_avg = sum(d["prediction"] for d in data) / len(data)
 
     times, avgs = [], []
     for bucket, preds in sorted(buckets.items()):
-        avg = sum(preds) / len(preds)
+        avg = sum(d["prediction"] for d in preds) / len(preds)
+        score = (avg * len(preds) + confidence_min * total_avg) / (avg * confidence_min)
+        if score > 28:
+            print(bucket, preds)
         times.append(start_time.timestamp() + bucket * window_size)
-        avgs.append(avg)
+        avgs.append(score)
 
     # Convert to datetime
     times = [datetime.fromtimestamp(t) for t in times]
@@ -45,9 +54,13 @@ for win, color in zip(window_sizes, colors):
     times, avgs = compute_bucket_avgs(data, win)
     plt.plot(times, avgs, marker="o", linestyle="-", color=color, label=f"{win}s window")
 
-plt.title("Average Prediction with 45s Sliding Window")
+plt.title("Score with 45s Sliding Window")
 plt.xlabel("Time")
-plt.ylabel("Average Prediction")
+plt.ylabel("Score")
 plt.grid(True)
 plt.legend()
 plt.show()
+
+# mins.sort()
+# mins = mins[::-1]
+# print(mins[:20])
