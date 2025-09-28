@@ -1,0 +1,169 @@
+{
+  "times": [
+    13.216666666666667,
+    13.216666666666667,
+    13.216666666666667,
+    13.216666666666667,
+    14.55,
+    14.55,
+    14.55,
+    14.55,
+    16.633333333333333,
+    16.633333333333333,
+    16.633333333333333,
+    17.05,
+    17.05,
+    17.05,
+    17.316666666666666,
+    17.316666666666666,
+    17.95,
+    17.95,
+    19.616666666666667,
+    19.616666666666667,
+    20.28333333333333,
+    20.28333333333333,
+    21.53333333333333,
+    21.53333333333333,
+    21.53333333333333,
+    21.53333333333333,
+    30.0,
+    30.0,
+    30.0,
+    30.0,
+    30.0,
+    30.0,
+    30.0,
+    30.0,
+    31.883333333333333,
+    31.883333333333333,
+    31.883333333333333,
+    31.883333333333333,
+    58.0,
+    58.0,
+    58.0,
+    58.0
+  ],
+  "avgs": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.00031479603178084293,
+    0.00031479603178084293,
+    0.00031479603178084293,
+    0.00031479603178084293,
+    0.0023469888842941504,
+    0.0023469888842941504,
+    0.0023469888842941504,
+    0.0023469888842941504,
+    0.0023469888842941504,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0008682163032653953,
+    0.0008682163032653953,
+    0.0008682163032653953,
+    0.0008682163032653953,
+    0.0011765251097419652,
+    0.0011765251097419652,
+    0.0011765251097419652,
+    0.0011765251097419652,
+    0.001525471309801108,
+    0.001525471309801108,
+    0.001525471309801108,
+    0.001525471309801108,
+    0.0014472043060614515,
+    0.0014472043060614515,
+    0.0014472043060614515,
+    0.0014472043060614515,
+    0.0026027245433067453,
+    0.0026027245433067453,
+    0.0026027245433067453,
+    0.0026027245433067453,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "worst15": [
+    [
+      "I can\u2019t stand that bum",
+      0.11234502494335175,
+      58.0
+    ],
+    [
+      "They are every year who we are accused of being every year: overrated with nothing to show for it.",
+      0.18115761876106262,
+      13.216666666666667
+    ],
+    [
+      "Putting up 60 on the literal equivalent of not having a defense out there isn\u2019t exactly evidence either way.",
+      0.2779839038848877,
+      31.883333333333333
+    ],
+    [
+      "I was so wrong about this. Thank God.",
+      0.29979851841926575,
+      16.633333333333333
+    ],
+    [
+      "But Pawl sad the SEC was NFL light!",
+      0.36987513303756714,
+      30.0
+    ],
+    [
+      "Could your defense stop a team drafted from elementary schools and nursing homes? If so, you should be less concerned by today\u2019s outcome",
+      0.37655141949653625,
+      30.0
+    ],
+    [
+      "\u201cArkansas and Notre Dame combined for a 1000 yard offense game.\u201d - Arkansas fans probably",
+      0.526852548122406,
+      14.55
+    ],
+    [
+      "I will thoroughly enjoy all the ND losses that are yet to come.",
+      0.5740600824356079,
+      19.616666666666667
+    ],
+    [
+      "Same. I actually called ND scoring 56 although I had Arkansas scoring 35. Needless to say I hammered the over as well. Made me sweat for a minute in the second half\u2026",
+      0.6003592610359192,
+      21.53333333333333
+    ],
+    [
+      "Season 2 is pretty good.",
+      0.8027663826942444,
+      17.05
+    ]
+  ],
+  "best5": [
+    [
+      "Could your defense stop a team drafted from elementary schools and nursing homes? If so, you should be less concerned by today\u2019s outcome",
+      0.37655141949653625,
+      30.0
+    ],
+    [
+      "\u201cArkansas and Notre Dame combined for a 1000 yard offense game.\u201d - Arkansas fans probably",
+      0.526852548122406,
+      14.55
+    ],
+    [
+      "I will thoroughly enjoy all the ND losses that are yet to come.",
+      0.5740600824356079,
+      19.616666666666667
+    ],
+    [
+      "Same. I actually called ND scoring 56 although I had Arkansas scoring 35. Needless to say I hammered the over as well. Made me sweat for a minute in the second half\u2026",
+      0.6003592610359192,
+      21.53333333333333
+    ],
+    [
+      "Season 2 is pretty good.",
+      0.8027663826942444,
+      17.05
+    ]
+  ]
+}

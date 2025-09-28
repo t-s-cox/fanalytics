@@ -58,8 +58,6 @@ async def extract_comments(comments_json, link_id, access_token, user_agent, max
 
     for item in queue:
 
-        print(len(item))
-
         kind = item.get("kind")
         if kind == "t1":  # a normal comment
             data = item["data"]
@@ -114,19 +112,22 @@ async def main():
     user_agent = 'myApp/0.1 by Evening_Falcon'
 
     token = get_access_token(reddit_client_id, reddit_client_secret, user_agent)
-    post_ids = ['1ns2kpg']
+    post_ids = [
+        ('1nre9o8', "fsuvsvirginia"), 
+        ('1ns2krh', 'uclavsnorthwestern'), 
+        ('1nm0fcx', 'syracusevsclemson'),
+        ('1nrxdyq', 'cincinativskansas'),
+        ('1nrxdy2', 'louisvillevspittsburgh'),
+    ]
 
-    all_comments = []
+    for subreddit, file_name in post_ids:
+        raw = fetch_comments(subreddit, token, user_agent)
+        all_comments = await extract_comments(raw, subreddit, token, user_agent, max_more_calls=6000)
 
-    for post_id in post_ids:
-        raw = fetch_comments(post_id, token, user_agent)
-        s = await extract_comments(raw, post_id, token, user_agent, max_more_calls=5000)
-        all_comments.extend(s)
+        with open(f"jsons/{file_name}.json", "w", encoding="utf-8") as f:
+            json.dump(all_comments, f, ensure_ascii=False, indent=2)
 
-    with open("jsons/lsuvolemiss.json", "w", encoding="utf-8") as f:
-        json.dump(all_comments, f, ensure_ascii=False, indent=2)
-
-    print(f"✅ Saved {len(all_comments)} comments to lsuvolemiss.json")
+        print(f"✅ Saved {len(all_comments)} comments to {file_name}.json")
 
 if __name__ == "__main__":
     import asyncio

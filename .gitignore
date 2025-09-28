@@ -5,3 +5,5 @@ BERT/model.safetensors
 hackgtFrontEnd/node_modules
 bertFineTune.py
 bertFineTune.py
+scrapeodds.py
+BERT
