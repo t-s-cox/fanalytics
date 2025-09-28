@@ -1,5 +1,4 @@
 secrets.py
-*.json
 redditcomments.csv
 bert_sentiment_regression
 BERT/model.safetensors
