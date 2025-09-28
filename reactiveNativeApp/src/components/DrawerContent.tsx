@@ -21,9 +21,9 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
+  { title: 'Select Games', route: 'GameSelection' },
   { title: 'Dashboard', route: 'Dashboard' },
   { title: 'Live Games', route: 'LiveGames' },
-  { title: 'Game Details', route: 'GameDetails' },
   { title: 'Sentiment Analysis', route: 'SentimentAnalysis' },
   { title: 'Predictions', route: 'Predictions' },
   { title: 'Highlights', route: 'Highlights' },

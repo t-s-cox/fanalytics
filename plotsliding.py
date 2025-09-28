@@ -13,7 +13,7 @@ confidence_min = 2
 mins = []
 
 sorted_times = []
-live_time_index = -1
+live_time_index = 9
 file_name = "fsuvsvirginia"
 
 with open(f"jsons/{file_name}P.json", "r") as f:
@@ -26,7 +26,7 @@ for i in range(len(data)):
 data.sort(key=lambda x: x["time"])
 
 if live_time_index != -1:
-    with open('LIVE_SCORES.json', 'r') as f:
+    with open('Data/live_scores.json', 'r') as f:
         live_scores = json.load(f)
         for drive in live_scores[live_time_index]['drives']:
             for play in drive['plays']:
@@ -149,8 +149,8 @@ color = "green"
 times, avgs, counts = compute_sliding_avgs(data, window_size)
 export['times'] = times
 export['avgs'] = avgs
-export['worst15'] = [[a[0], a[1], a[2]] for a in sorted(to_print, key=lambda x: (x[1], x[0]))][:15]
-export['best5'] = [[a[0], a[1], a[2]] for a in sorted(to_print, key=lambda x: (x[1], x[0]))][-5:]
+export['worst15'] = [[a[0], a[1], a[2]] for a in sorted(to_print, key=lambda x: (x[1], x[0]))][:25]
+export['best5'] = [[a[0], a[1], a[2]] for a in sorted(to_print, key=lambda x: (x[1], x[0]))][-10:]
 
 if not live_time_index == -1:
     with open(f"exports/{file_name}.json", "w") as f:

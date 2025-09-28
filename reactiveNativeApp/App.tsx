@@ -13,6 +13,7 @@ import GameDetailsScreen from './src/screens/GameDetailsScreen';
 import SentimentAnalysisScreen from './src/screens/SentimentAnalysisScreen';
 import PredictionsScreen from './src/screens/PredictionsScreen';
 import HighlightsScreen from './src/screens/HighlightsScreen';
+import GameSelectionScreen from './src/screens/GameSelectionScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -28,6 +29,7 @@ function DrawerNavigator() {
         },
       }}
     >
+      <Drawer.Screen name="GameSelection" component={GameSelectionScreen} />
       <Drawer.Screen name="Dashboard" component={DashboardScreen} />
       <Drawer.Screen name="LiveGames" component={LiveGamesScreen} />
       <Drawer.Screen name="SentimentAnalysis" component={SentimentAnalysisScreen} />

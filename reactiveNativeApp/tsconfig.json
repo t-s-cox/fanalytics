@@ -6,6 +6,7 @@
       "dom",
       "esnext"
     ],
+    "types": ["react", "react-native", "react-dom"],
     "moduleResolution": "bundler",
     "noEmit": true,
     "skipLibCheck": true,
